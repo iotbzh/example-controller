@@ -1,0 +1,62 @@
+{
+    "$schema": "http://iot.bzh/download/public/schema/json/ctl-schema.json",
+    "metadata": {
+        "uid": "CONTROLLER-EXAMPLE",
+        "version": "0.99",
+        "api": "controller-example",
+        "info": "Example of controller use",
+        "require" : [ "event-generator" ],
+        "author": "Jonathan Aillet",
+        "date": "2019-11-26"
+    },
+    "plugins": [
+        {
+            "uid": "controller-example-c-plugin",
+            "info": "C Plugin for example",
+            "spath" : "./lib/plugins:$ENV_CTRL_TEST/lib/plugins",
+            "libs": [ "controller-example-c-plugin.ctlso" ]
+        },
+        {
+            "uid": "controller-example-lua-plugin",
+            "info": "LUA Plugin for example",
+            "spath" : "./var:$ENV_CTRL_TEST/var:$ENV_CTRL_TEST2/var",
+            "libs": [ "controller-example-lua-plugin.lua" ]
+        }
+    ],
+    "onload": [
+        {
+            "uid": "controller-example-c-plugin-onload",
+            "info": "Onload C function call",
+            "action": "plugin://controller-example-c-plugin#onload_function"
+        },
+        {
+            "uid": "controller-example-lua-plugin-onload",
+            "info": "Onload LUA function call",
+            "action": "lua://controller-example-lua-plugin#_Onload_Lua_Function"
+        }
+    ],
+    "controls" : [
+        {
+            "uid": "controller-example-c-plugin-control",
+            "info": "Control C function call",
+            "action": "plugin://controller-example-c-plugin#control_function"
+        },
+        {
+            "uid": "controller-example-lua-plugin-control",
+            "info": "Control LUA function call",
+            "action": "lua://controller-example-lua-plugin#_Control_Lua_Function"
+        }
+    ],
+    "events" : [
+        {
+            "uid": "event-generator/generated-event-for-c-plugin",
+            "info": "Event function call",
+            "action": "plugin://controller-example-c-plugin#event_function"
+        },
+        {
+            "uid": "event-generator/generated-event-for-lua-plugin",
+            "info": "Event LUA function call",
+            "action": "lua://controller-example-lua-plugin#_Event_Lua_Function"
+        }
+    ]
+}
